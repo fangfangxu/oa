@@ -45,21 +45,89 @@
        -SpringMVC加载
        
        
-        
-      
-          
+     ***********************oa_dao ***********************
+     
+     ﻿ <beans xmlns="http://www.springframework.org/schema/beans"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:context="http://www.springframework.org/schema/context"
+              xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+       
+           <!--开启自动扫描-->
+           <context:component-scan base-package="com.imooc.oa.dao"/>
+       
+           <!--配置数据源--><!--DriverManagerDataSource是Spring jdbc里提供的数据源-->
+           <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+               <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+               <property name="url"
+                         value="jdbc:mysql://localhost:3306/oa?useUnicode=true&amp;characterEncoding=utf-8"></property>
+               <property name="username" value="root"></property>
+               <property name="password" value="123456"></property>
+           </bean>
+       
+           <!--session工厂:由mybatis-spring整合包提供-->
+           <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+               <property name="dataSource" ref="dataSource"/>
+               <!--还可以配置别名:在mybatis映射文件中调用实体类：不用调用实体类全路径，只用类名-->
+               <property name="typeAliasesPackage" value="com.imooc.oa.entity"/>
+           </bean>
+       
+           <!--MapperScannerConfigurer映射器接口：被自动调用：由mybatis-spring整合包提供-->
+           <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+               <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+               <property name="basePackage" value="com.imooc.oa.dao"/>
+           </bean>
+       </beans>
      
      
      
+     ******************************oa_biz*********************************************
      
+     <beans xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:context="http://www.springframework.org/schema/context"
+            xmlns:aop="http://www.springframework.org/schema/aop"
+            xmlns:tx="http://www.springframework.org/schema/tx"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx.xsd">
      
+         <!--  <aop:aspectj-autoproxy/>-->
+         <import resource="spring-dao.xml"/>
+         <!--包扫描-->
+         <context:component-scan base-package="com.imooc.oa.biz"/>
+         <!--声明式事务-->
+        <!--事务管理器-->
+         <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+             <property name="dataSource" ref="dataSource"/>
+         </bean>
      
+         <!--用tx命名空间声明通知-->
+         <tx:advice id="myAdvice" transaction-manager="transactionManager">
+            <!--通过属性的方式去指定里边的哪些方法我们怎么去处理-->
+             <tx:attributes>
+                 <!--只读：不使用事务-->
+                 <tx:method name="get*" read-only="true"/>
+                 <tx:method name="find*" read-only="true"/>
+                 <tx:method name="search*" read-only="true"/>
+                 <tx:method name="*" propagation="REQUIRED"/>
+             </tx:attributes>
+         </tx:advice>
      
+         <!--通知与切入点进行关联-->
+         <aop:config>
+             <aop:pointcut id="pointcut" expression="execution(* com.imooc.oa.biz.*.*(..))"/>
+             <aop:advisor advice-ref="myAdvice" pointcut-ref="pointcut"/>
+         </aop:config>
      
-     
-     
-     
-     
+     </beans>
      
      
      
