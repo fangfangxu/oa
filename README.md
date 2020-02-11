@@ -178,7 +178,60 @@
       
           <servlet-mapping>
               <servlet-name>DispatcherServlet</servlet-name>
-              <url-pattern>/*</url-pattern>
+              <url-pattern>/</url-pattern>
           </servlet-mapping>
       
       </web-app>
+
+
+四、其他文件配置
+
+（1）编码过滤器
+
+    java:
+   
+    /**
+     * 编码过滤器
+     */
+    public class EncodingFilter implements Filter {
+        private String encoding;
+    
+       @Override
+       public void init(FilterConfig filterConfig) throws ServletException {
+           if (filterConfig.getInitParameter("encoding") != null) {
+               encoding = filterConfig.getInitParameter("encoding");
+           }
+       }
+   
+       @Override
+       public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+           HttpServletRequest request = (HttpServletRequest) servletRequest;
+           HttpServletResponse response = (HttpServletResponse) servletResponse;
+           request.setCharacterEncoding(encoding);
+           response.setCharacterEncoding(encoding);
+           filterChain.doFilter(request, response);
+       }
+   
+       @Override
+       public void destroy() {
+           encoding = null;
+       }
+    }
+   
+    web.xml:
+         <!--配置字符集过滤器-->
+         <filter>
+             <filter-name>encoding</filter-name>
+             <filter-class>com.imooc.oa.global.EncodingFilter</filter-class>
+             <init-param>
+                 <param-name>encoding</param-name>
+                 <param-value>utf-8</param-value>
+             </init-param>
+         </filter>
+         <filter-mapping>
+             <filter-name>encoding</filter-name>
+             <url-pattern>/</url-pattern>
+         </filter-mapping>
+ 
+
+ 
