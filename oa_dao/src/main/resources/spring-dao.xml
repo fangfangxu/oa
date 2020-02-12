@@ -9,11 +9,11 @@
     <!--开启自动扫描-->
     <context:component-scan base-package="com.imooc.oa.dao"/>
 
-    <!--配置数据源--><!--DriverManagerDataSource是Spring jdbc里提供的数据源-->
+    <!--配置数据源-->
+    <!--DriverManagerDataSource是Spring jdbc里提供的数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url"
-                  value="jdbc:mysql://localhost:3306/oa?useUnicode=true&amp;characterEncoding=utf-8"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/sm?useUnicode=true&amp;charactorEncoding=utf-8&amp;serverTimezone=UTC"></property>
         <property name="username" value="root"></property>
         <property name="password" value="123456"></property>
     </bean>
