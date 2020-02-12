@@ -13,6 +13,7 @@
     <!--开启mvc注解驱动，除了context:component-scan中扫描的controller、service、repository、compnent
      外-->
     <mvc:annotation-driven/>
+    <!--静态资源默认让servlet去处理-->
     <mvc:default-servlet-handler/>
     <!--视图转换器-->
      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

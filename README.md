@@ -234,4 +234,48 @@
          </filter-mapping>
  
 
- 
+(2)静态资源处理
+
+     由于之前在Spring的配置文件配置了<mvc:default-servlet-handler/>（打开了默认是让servlet来处理）
+     然后在这配置默认servlet的处理对象（即url-pattern内的请求路径），配置后这些请求路径都会
+     交给默认的servlet（即default）来处理，这个servlet处理过滤以后，在交给SpringMVC这个servlet
+     
+     PS：不管有没有自己创建servlet，在JavaWeb项目中，其实有一个名叫default的servlet
+     （相当于这个servlet已经配置好了，这里只要指定url即可） 
+     
+     web.xml:配置处理静态资源的servlet
+     
+           <servlet-mapping>
+               <servlet-name>default</servlet-name>
+               <url-pattern>/assets/*</url-pattern>
+               <url-pattern>/js/*</url-pattern>
+               <url-pattern>/vendor/*</url-pattern>
+               <url-pattern>*.js</url-pattern>
+               <url-pattern>*.jpg</url-pattern>
+               <url-pattern>*.png</url-pattern>
+               <url-pattern>*.css</url-pattern>
+           </servlet-mapping>
+
+
+(3)常量类
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
