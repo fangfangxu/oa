@@ -1,6 +1,7 @@
 package com.imooc.oa.controller;
 
 import com.imooc.oa.biz.DepartmentBiz;
+import com.imooc.oa.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,15 @@ private DepartmentBiz departmentBiz;
         return "department_list";
     }
 
+    @RequestMapping("/to_add")
+    public String toAdd(Map<String,Object> map){
+        map.put("department",new Department());
+        return "department_add";
+    }
 
-    @RequestMapping("/list1")
-    @ResponseBody
-    public String list1(Map<String,Object> map){
-        map.put("list",departmentBiz.getAll());
-        return "徐";
+    @RequestMapping("/add")
+    public String add(Department department){
+        departmentBiz.add(department);
+        return "redirect:list";
     }
 }

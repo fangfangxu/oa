@@ -3,7 +3,7 @@
 <mapper namespace="com.imooc.oa.dao.DepartmentDao">
 
     <resultMap id="department" type="Department">
-        <result column="sn" property="sn" javaType="java.lang.String"/>
+        <id column="sn" property="sn" javaType="java.lang.String"/>
         <result column="name" property="name" javaType="java.lang.String"/>
         <result column="address" property="address" javaType="java.lang.String"/>
     </resultMap>

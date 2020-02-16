@@ -13,7 +13,7 @@
     <!--DriverManagerDataSource是Spring jdbc里提供的数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/sm?useUnicode=true&amp;charactorEncoding=utf-8&amp;serverTimezone=UTC"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/oa?useUnicode=true&amp;charactorEncoding=utf-8&amp;serverTimezone=UTC"></property>
         <property name="username" value="root"></property>
         <property name="password" value="123456"></property>
     </bean>

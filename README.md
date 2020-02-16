@@ -230,7 +230,7 @@
          </filter>
          <filter-mapping>
              <filter-name>encoding</filter-name>
-             <url-pattern>/</url-pattern>
+             <url-pattern>/*</url-pattern>
          </filter-mapping>
  
 
