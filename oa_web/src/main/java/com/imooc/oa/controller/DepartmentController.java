@@ -34,4 +34,22 @@ private DepartmentBiz departmentBiz;
         departmentBiz.add(department);
         return "redirect:list";
     }
+
+    @RequestMapping(value = "/to_update",params = "sn")
+    public String toUpdate(String sn,Map<String,Object> map){
+        map.put("department",departmentBiz.get(sn));
+        return "department_update";
+    }
+
+    @RequestMapping("/update")
+    public String update(Department department){
+        departmentBiz.edit(department);
+        return "redirect:list";
+    }
+
+    @RequestMapping(value = "/remove",params = "sn")
+    public String remove(String sn){
+        departmentBiz.remove(sn);
+        return "redirect:list";
+    }
 }
