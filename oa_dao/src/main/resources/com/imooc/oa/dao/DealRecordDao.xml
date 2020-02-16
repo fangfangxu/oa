@@ -9,7 +9,7 @@
         <result property="dealWay" column="deal_way" javaType="String"/>
         <result property="dealResult" column="deal_result" javaType="String"/>
         <result property="comment" column="comment" javaType="String"/>
-        <association property="dealer" column="next_deal_sn" javaType="Employee">
+        <association property="dealer" column="deal_sn" javaType="Employee">
             <result property="name" column="ename" javaType="String"/>
             <result property="post" column="epost" javaType="String"/>
         </association>

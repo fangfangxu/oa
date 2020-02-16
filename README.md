@@ -260,6 +260,14 @@
 (3)常量类
 
 
+五、MVC
+      
+      业务层 oa_biz  --(M)
+      
+      持久层 oa_dao  --(M)
+      
+      表现层 oa_web  --controller-(C)  jsp-(V)
+
 
 
 
